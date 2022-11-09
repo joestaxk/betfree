@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "ES2015",
+    "module": "CommonJS",
+    "noImplicitAny": true,
+    "preserveConstEnums": true,
+    "outDir": "dist",
+    // "rootDir": "src"
+    // "declaration": true,
+    // "declarationDir": "./types"
+  },
+  
+  "watchOptions": {
+    // Use native file system events for files and directories
+    "watchFile": "useFsEvents",
+    "watchDirectory": "useFsEvents",
+    // Poll files for updates more frequently
+    // when they're updated a lot.
+    "fallbackPolling": "dynamicPriority",
+    // Don't coalesce watch notification
+    "synchronousWatchDirectory": true,
+    // Finally, two additional settings for reducing the amount of possible
+    // files to track  work from these directories
+    "excludeDirectories": ["**/node_modules", "dist"],
+    "excludeFiles": ["build/fileWhichChangesOften.ts"]
+  },
+  
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
+  
+}
