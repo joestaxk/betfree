@@ -1,26 +1,42 @@
 import { socketIO } from "../app";
-import { countdown } from "../utilities/countdown.utilities";
+import { getTimeStamp, t } from "../services/crontask.services";
+import { IntiateWeekController } from "./initiateWeekController";
+// import { EventEmitter } from 'node:events';
+
 
 export default class SocketController {
-    static speed = 50;
-    
-    static countdown_socket(socketFn:any) {
-        countdown(4, socketFn)
-    }
-    
-    static init() {
-        socketIO.on('connection', (socket:any) => {
-            console.log(`⚡: ${socket.id} user just connected!`);
+    static  init() {
+        socketIO.on('connection', async (socket:any) => {
+          if(socket.id) {
+              console.log(`⚡: ${socket.id} user just connected!`);
+                //   first connection
+              socket.emit('ready', true)
+              socket.emit('warmup', false);
         
-            setInterval(() => {
-                SocketController.countdown_socket(function(minute:number, seconds:number) { 
-                    socket.emit('running_countdown', `${minute}:${seconds}`)
-                })
-            }, SocketController.speed)
-            
+              // Send week, league and games
+              let newController = new IntiateWeekController()
+              let currentGameData  = (await newController.getCurrentMatches())[0];
+              
+              socket.emit('fixture', currentGameData?.currentgame)
+              socket.emit('week', currentGameData?.week)
+              socket.emit('league', currentGameData?.league)  
+              
+              let getTableData = (await newController.newTable())
+              if(getTableData) {
+                  socket.emit('table', getTableData)
+              }
+              
+              // emit last game also
+              let lastGameData  = (await newController.getLastMatches())[0];
+              socket.emit('marquee', lastGameData)
+              
+              // Emit Timmers.. includes 90's time and 5mins timer.
+              t(socket)
+          }
+
             socket.on('disconnect', () => {
                 console.log('🔥: A user disconnected');
             });
         })
-    } 
+    }
 }

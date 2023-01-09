@@ -1,12 +1,13 @@
 const router = (require('express')).Router();
+import { EplRoute } from "./epl";
 import timer from "./timer.router";
 
-type routeType<T> = [{path:T, resource: (arg0: object, arg1: object) => any }];
+type routeType<T> = {path:T, resource: (arg0: object, arg1: object) => any };
 
-const defineRoutes:routeType<string> = [
+const defineRoutes:Array<routeType<string>> =  [
     {
-        path: '/timer',
-        resource: timer
+        path: '/epl',
+        resource: EplRoute.createNextEvent
     }
 ]
 

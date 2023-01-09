@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const router = (require('express')).Router();
-const timer_router_1 = require("./timer.router");
+const epl_1 = require("./epl");
 const defineRoutes = [
     {
-        path: '/timer',
-        resource: timer_router_1.default
+        path: '/epl',
+        resource: epl_1.EplRoute.createNextEvent
     }
 ];
 for (const { path, resource } of defineRoutes) {

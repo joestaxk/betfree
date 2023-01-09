@@ -1,15 +1,83 @@
 .App {
   width: 100vw;
   min-height: 100vh;
-  background: rgb(4, 0, 24);
+  background: rgb(81, 81, 82);
   color: rgb(254, 255, 255);
   
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  transition: .5s background-color;
 }
 
-.timer {
-  font-size: 5rem;
-  font-weight: 700  ;
+.App > h1 {
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.App > h1::first-letter {
+  margin-right: .4rem;
+  color: rgb(112, 114, 0);
+  font-size: 2.5rem;
+}
+
+.bar-tab {
+  width: 100%;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.bar-tab * {
+  min-width: 250px;
+  min-height: 200px;
+  margin: 0 1rem;
+  background: rgb(2, 40, 143);
+  border-radius:20px;
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+  transition: .5s all;
+}
+
+.live {
+  font-size: 2rem;
+  font-weight:600;
+  position: relative;
+}
+
+.live:hover .tv  {
+  margin-right: .4rem;
+  color: rgb(161, 163, 45);
+  font-weight:600;
+}
+
+.live .tv::after {
+  content: '';
+  width: 15px;
+  height: 15px;
+  background: red;
+  
+  position: absolute;
+  top: 35%; 
+  right: 15%;
+  border-radius: 50px;
+  filter: blur(1px);
+  animation: ping 1s linear 1s infinite alternate;
+}
+
+.market:hover .epl  {
+  margin-right: .4rem;
+  color: rgb(20, 142, 212);
+  font-size: 4rem;
+  font-weight:600;
+}
+
+/* ANi */
+
+@keyframes ping {
+  0%{
+    opacity: 0;
+  }
 }

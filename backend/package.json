@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc --build",
-    "start": "nodemon ./dist/",
+    "start": "NODE_ENV=production node ./dist/",
+    "dev": "NODE_ENV=development nodemon ./dist/",
     "watch": "tsc --watch"
   },
   "repository": {
